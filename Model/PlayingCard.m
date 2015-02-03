@@ -10,6 +10,25 @@
 
 @implementation PlayingCard
 
+- (int)match:(NSArray *)otherCards {
+    int score = 0;
+    
+    if ([otherCards count] == 1) {
+        id card = [otherCards firstObject];
+        //check if card is actually a playingCard
+        if ([card isKindOfClass:[PlayingCard class]]) {
+            PlayingCard *otherCard = (PlayingCard *)card;
+            if ([self.suit isEqualToString:otherCard.suit]) {
+                score = 1;
+            } else if (self.rank == otherCard.rank) {
+                score = 4;
+            }
+        }
+    }
+    
+    return score;
+}
+
 - (NSString *)contents {
     NSArray *rankStrings = [PlayingCard rankStrings];
     return [rankStrings[self.rank] stringByAppendingString:self.suit];
@@ -42,4 +61,5 @@
         _rank = rank;
     }
 }
+
 @end
